@@ -1,0 +1,17 @@
+<div id = "modal-window">
+
+    <div id="task-window">
+        <button id="save-task-button">save</button>
+        <button id="close-button">close</button>
+        <input id="title" type="text">title</input>
+        <input id="status">status</input>
+        <select id="implementer">
+            {{#each this}}
+                <option value="{{this.attributes.id}}">{{this.attributes.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+</div>
+
+
