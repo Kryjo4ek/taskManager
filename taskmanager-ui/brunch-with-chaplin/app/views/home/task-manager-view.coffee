@@ -2,46 +2,36 @@ View = require 'views/base/view'
 Template = require 'views/home/templates/task-manager'
 TasksView = require 'views/home/tasks-view'
 TaskWindowView = require 'views/home/task-window-view'
+ImplementerWindowView= require 'views/home/implementer-window-view'
+FilterStatusWindowView= require 'views/home/status-filter-window-view'
 Tasks = require 'models/tasks'
+Chaplin = require 'chaplin'
 
 
 module.exports = class TaskManagerView extends View
 
   template: Template
   autoRender: true
+  className: 'header-task'
   events:
     'click .addtask-button' : 'showWindowTask'
-    'click .addimplementer-button' : 'addImplementer'
-    
+    'click .addimplementer-button' : 'showWindowImplementer'
+    'click .delete-all-tasks' : 'deleteCheckTasks'
+#    'click .filter-status-button' : 'showFilterStatusWindow'
 
   showWindowTask: ->
-
     @taskWindowView = new TaskWindowView region: 'modalWindow'
-#    @addTask(@createTask)
-#    console.log('showWindowTask')
+
+  showWindowImplementer: ->
+    @implementerWindowView = new ImplementerWindowView region:'modalWindow'
+
+  deleteCheckTasks: ->
+    Chaplin.mediator.publish 'deleteMarked'
+
+#  showFilterStatusWindow: ->
+#    @filterStatusWindow = new FilterStatusWindowView region: 'modalWindow'
 
 
-#  createTask: (task) =>
-#    TasksView.collection.createNewTask(task)
-#  createTask: (task) ->
-#    Tasks.createNewTask(task)
-#  createTask: (task) ->
-#    @subviewsByName['tasks'].collection.createNewTask(task)
-#  createTask: (task) ->
-#    Tasks.a()
-#    @Tasks.createNewTask(task)
 
-
-#  addTask:(callback) ->
-#
-#    console.log('addTask create')
-#    @taskWindowView = new TaskWindowView region: 'modalWindow', callback: callback
-
-
-  
-  
-    
-  addImplementer: ->
-    console.log('addimplementer')
 
 

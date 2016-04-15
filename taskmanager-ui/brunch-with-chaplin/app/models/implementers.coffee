@@ -1,5 +1,6 @@
 Implementer= require 'models/implementer'
 Collection = require 'models/base/collection'
+Chaplin = require 'chaplin'
 
 module.exports = class Implementers extends Collection
 
@@ -8,12 +9,14 @@ module.exports = class Implementers extends Collection
   
   initialize: ->
     super
+    Chaplin.mediator.subscribe('newImplementer', @createNewImplementer)
     Implementers.cacheImplementer = @
     
   parse: (data) ->
-
     data.objects
 
 
+  createNewImplementer: (implementer) =>
+    @create(implementer)
 
     

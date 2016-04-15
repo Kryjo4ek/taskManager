@@ -8,15 +8,13 @@ module.exports = class TaskWindowView extends View
 
   template: Template
   autoRender: true
+  className : "modal-window"
   events:
     'click #save-task-button' : 'saveTask'
     'click #close-button' : 'removeWindow'
-    'change input' : ()-> console.log('!')
 #    'click .select-implementer-button' : 'selectImplementer'
-
-  initialize: (options)->
-    super
-    @callback = options.callback
+#    'change input' : ()-> console.log('!')
+#    'click .select-implementer-button' : 'selectImplementer'
 
   removeWindow: ->
     @remove()
@@ -32,12 +30,12 @@ module.exports = class TaskWindowView extends View
     Chaplin.mediator.publish 'newTask', task
     @removeWindow()
 
-
   validate: (task) ->
-    valid = true
+    valid = false
 
-    if task.title != /^[A-Z][a-z]{3,}$/
-      valid = false
+    if (/^[A-Z][a-z\s]{3,20}$/.test(task.title))
+      valid = true
+    else
       @$('#title').css('border', '1px solid red')
 
     return valid
@@ -46,9 +44,4 @@ module.exports = class TaskWindowView extends View
     ImplementersModel.cacheImplementer.models
 
 
-#  selectImplementer: ->
-#    console.log('asdf')
-#    @collectionImplementer = new ImplementersModel
-#    @collectionImplementerView = new ImplementersView collection: @collectionImplementer, region: 'setImplementer'
-#    @collectionImplementer.fetch().success @collectionImplementerView.render
     

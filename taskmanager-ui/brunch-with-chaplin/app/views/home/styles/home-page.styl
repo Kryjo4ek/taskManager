@@ -1,68 +1,61 @@
 @import 'nib'
 
-.home-page
-  width: 551px
-  height: 275px
-  margin: 0 auto
-  padding: 5px
-  margin-bottom: 0.5em
-  color: #fff
-  background-color: #7fc4d6
-  .icon-brunch-logo-napkin
-    background-repeat: no-repeat
-    width: 256px
-    height: 256px
-    margin: 0 auto
-    transition: background-size 0.2s
-    background-size: 100%
-    background-image: url('http://brunch.io/images/svg/png/brunch-logo-napkin.png')
+.background
+  background #E3F2FD
+  position fixed
+  width 100%
+  height 100%
+  top 0
+  z-index -100
 
+#manager-container
+  text-align center
 
+  #column-name-container
+    display inline-block
+    position fixed
+    top 0
 
-#modal-window
+    .column-name-task
+      text-align: center
+      background: #2196F3
+      float: left
+      width 200px
+      height: 50px
+      line-height: @height
+
+  #tasks-container
+    display inline-block
+    margin-top 50px
+
+.modal-window
   width: 100%
   height: 100%
-  background: rgba(0, 0, 0, 0.9)
+  background: rgba(0, 0, 0, 0.7)
   top: 0
   left: 0
   position: fixed
-  //padding: 1px
-  //margin: 0 auto
-  //margin-bottom: 0em
-  //color: yellow
+  z-index 100
 
-#task-window
+  .window
+    background: rgba(236, 231, 159, 1)
+    margin: 150px auto
+    width: 400px
 
-  width: 400px
-  height: 500px
-  background: rgba(254, 254, 0, 0.1)
-  margin: 150px auto
+  .task-window
+    height: 300px
 
-#set-implementer
-  width: 100px
-  height: 100px
-  margin: 0px 400px
-  background: green
-  position: fixed
-  top: 0
-  left: 0
+  .implementer-window
+    height: 200px
 
-.task
-  //overflow: hidden
+  .status-filter-window
+    height: 200px
 
 
 .property-task
   margin-top 2px
   text-align: center
-  background: beige
-  float: left
-  width: 200px
-  height: 50px
-  line-height: @height
-
-.property-name
-  text-align: center
-  background: dodgerblue
+  background: white
   float: left
   width: 200px
   height: 50px
@@ -70,7 +63,6 @@
 
 .property-button-task
   text-align: center
-
   float: left
   width: 200px
   height: 50px
@@ -86,4 +78,7 @@
 .delete-task
   width: 50px
   height: 50px
-  background: black
+  background-color: white
+
+.proverka
+  background-color: black

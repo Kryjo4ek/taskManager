@@ -12,5 +12,6 @@ module.exports = class SiteView extends View
     modalWindow: '#modal-window-container'
     taskWindow: '.task-window-container'
     setImplementer: '#set-implementer'
+    columnNameContainer:'#column-name-container'
     
   template: require './templates/site'

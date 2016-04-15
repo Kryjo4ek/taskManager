@@ -9,10 +9,21 @@ module.exports = class Tasks extends Collection
 
   initialize: ->
     Chaplin.mediator.subscribe('newTask', @createNewTask)
-
+#    Chaplin.mediator.subscribe('searchCheckTasks', @searchCheckTasks)
+#    Chaplin.mediator.subscribe('deleteCollection', @deleteAllTasks)
   parse: (data) ->
     data.objects
 
+#  searchCheckTasks: =>
+#    checkTasks = $('tr').has('.proverka')
+#    console.log checkTasks
+##    console.log @model
+    
   createNewTask: (task) =>
+    console.log 'ata'
     console.log task
     @create(task)
+
+#  deleteAllTasks: ()=>
+#    console.log @
+##    @reset()
