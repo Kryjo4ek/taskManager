@@ -10,7 +10,6 @@ TaskWindowView = require 'views/home/task-window-view'
 ImplementersModel = require 'models/implementers'
 FilterStatusWindowView= require 'views/home/status-filter-window-view'
 
-
 module.exports = class HomeController extends Controller
   beforeAction: ->
     super
@@ -22,14 +21,28 @@ module.exports = class HomeController extends Controller
     @collection = new TasksModel
     @collectionView = new TasksView collection: @collection, region: 'tasks'
     @collection.fetch().success @collectionView.render
-
-# change
-
     @collectionImplementer = new ImplementersModel
     console.log (ImplementersModel.cacheImplementer)
-
     @collectionImplementer.fetch().success ()-> console.log (ImplementersModel.cacheImplementer)
 
-#    @filterStatusWindow = new FilterStatusWindowView region: 'modalWindow'
-#    @modalWindowView = new TaskWindowView region: 'testRegion'
-  
+#testkeys
+#  index: ->
+#    httpRequest = new XMLHttpRequest()
+#    httpRequest.open('DELETE', 'http://127.0.0.1:8000/api/v1/tasks/')
+#    httpRequest.send()
+#    console.log @collection
+#    @collection = new TasksModel
+#
+#    @collection.fetch().success test
+#    test:  =>
+#      console.log @collection
+#      @collection.create(
+#        {
+#          title: 'Killhim'
+#          status: 'closed'
+#          implementer: {name: 'Abram'}
+#        }
+#      )
+#      console.log @collection.models
+#      @collection.last().destroy()
+#      console.log @collection.models

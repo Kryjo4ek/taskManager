@@ -1,7 +1,7 @@
 @import 'nib'
 
 .background
-  background #E3F2FD
+  background #263748
   position fixed
   width 100%
   height 100%
@@ -10,19 +10,57 @@
 
 #manager-container
   text-align center
+  width 100%
+  height 100%
+  //border green
+  //border white
+  //possition:relative
 
   #column-name-container
-    display inline-block
-    position fixed
-    top 0
+    width 800px
+    height 100px
+    position:fixed
+    left 50%
+    margin-left -400px
+    font-size 20px
+    color white
+
 
     .column-name-task
       text-align: center
-      background: #2196F3
-      float: left
       width 200px
       height: 50px
       line-height: @height
+      //border #3598DC
+
+
+
+    .property-button-task
+      width 200px
+      height 50px
+      border #3598DC
+      cursor pointer
+      text-align center
+      line-height @height
+      transition-duration: 0.4s
+      &:hover
+        background #3598DC
+        color #263748
+
+
+    .select-status
+      width 200px
+      height 50px
+
+      .menu
+        color white
+        border-bot #3598DC
+
+        height 50px
+        overflow hidden
+        &:hover
+          height 500px
+
 
   #tasks-container
     display inline-block
@@ -61,17 +99,7 @@
   height: 50px
   line-height: @height
 
-.property-button-task
-  text-align: center
-  float: left
-  width: 200px
-  height: 50px
-  line-height: @height
 
-.button
-  height: 100%
-  width: 100%
-  background-color: white
 
 
 

@@ -12,9 +12,6 @@ module.exports = class TaskWindowView extends View
   events:
     'click #save-task-button' : 'saveTask'
     'click #close-button' : 'removeWindow'
-#    'click .select-implementer-button' : 'selectImplementer'
-#    'change input' : ()-> console.log('!')
-#    'click .select-implementer-button' : 'selectImplementer'
 
   removeWindow: ->
     @remove()

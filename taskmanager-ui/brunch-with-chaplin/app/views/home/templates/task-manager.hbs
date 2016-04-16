@@ -1,18 +1,29 @@
-
-<tr>
-    <th class="column-name-task">Title</th>
-    <th class="column-name-task">Status</th>
-    <th class="column-name-task">Implementer</th>
-    <th class="column-name-task">Delete task</th>
-</tr>
-
-<tr>
-    <td class="property-button-task"><button class="button addtask-button">Add task</button></td>
-    <td class="property-button-task">
-        <select class="button filter-status-button">
-            <option>All status</option>
-        </select>
-    </td>
-    <td class="property-button-task"><button class="button addimplementer-button">Add implementer</button></td>
-    <td class="property-button-task"><button class="button delete-all-tasks">Delete the marked</button></td>
-</tr>
+<table class="test">
+    <tr>
+        <td class="property-button-task" id="add-task">Add Task</td>
+        <td class="property-button-task" id="filter-status-button">
+            <div class="select-status">
+                <div class ="menu">
+                <div class="option-status">All status</div>
+                <div class="option-status">New</div>
+                <div class="option-status">Reopened</div>
+                <div class="option-status">Assigned</div>
+                <div class="option-status">InProgress</div>
+                <div class="option-status">Feedback</div>
+                <div class="option-status">Resolved</div>
+                <div class="option-status">Testing</div>
+                <div class="option-status">Deployment</div>
+                <div class="option-status">Closed</div>
+                </div>
+            </div>
+        </td>
+        <td class="property-button-task" id="add-implementer">Add implementer</td>
+        <td class="property-button-task" id="delete-check-tasks">Delete the marked</td>
+    </tr>
+    <!--<tr>-->
+        <!--<td class="column-name-task">Title</td>-->
+        <!--<td class="column-name-task">Status</td>-->
+        <!--<td class="column-name-task">Implementer</td>-->
+        <!--<td class="column-name-task">Delete task</td>-->
+    <!--</tr>-->
+</table>

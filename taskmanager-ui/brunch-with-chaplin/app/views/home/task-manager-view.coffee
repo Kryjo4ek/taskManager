@@ -5,6 +5,7 @@ TaskWindowView = require 'views/home/task-window-view'
 ImplementerWindowView= require 'views/home/implementer-window-view'
 FilterStatusWindowView= require 'views/home/status-filter-window-view'
 Tasks = require 'models/tasks'
+TasksView =  require 'views/home/tasks-view'
 Chaplin = require 'chaplin'
 
 
@@ -14,12 +15,13 @@ module.exports = class TaskManagerView extends View
   autoRender: true
   className: 'header-task'
   events:
-    'click .addtask-button' : 'showWindowTask'
-    'click .addimplementer-button' : 'showWindowImplementer'
-    'click .delete-all-tasks' : 'deleteCheckTasks'
-#    'click .filter-status-button' : 'showFilterStatusWindow'
+    'click #add-task' : 'showWindowTask'
+    'click #add-implementer' : 'showWindowImplementer'
+    'click #delete-check-tasks' : 'deleteCheckTasks'
+#    'click #filter-status-button"' : 'showFilterStatusWindow'
 
   showWindowTask: ->
+    console.log 'srabotalo'
     @taskWindowView = new TaskWindowView region: 'modalWindow'
 
   showWindowImplementer: ->
@@ -30,7 +32,8 @@ module.exports = class TaskManagerView extends View
 
 #  showFilterStatusWindow: ->
 #    @filterStatusWindow = new FilterStatusWindowView region: 'modalWindow'
-
+#  getTemplateData: ->
+#    TasksView.cacheImplementer.models
 
 
 
