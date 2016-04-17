@@ -1,13 +1,28 @@
 <div class="window task-window">
-    <button id="save-task-button">save</button>
-        <button id="close-button">close</button>
-    <input id="title" type="text">title</input>
-    <input id="status">status</input>
-    <select id="implementer">
+    <input id="title" type="text" value="Input Title Task">
+    <div class ="menu-option-status">
+        <div class="option-status-top">New</div>
+        <div class="option-status">New</div>
+        <div class="option-status">Reopened</div>
+        <div class="option-status">Assigned</div>
+        <div class="option-status">InProgress</div>
+        <div class="option-status">Feedback</div>
+        <div class="option-status">Resolved</div>
+        <div class="option-status">Testing</div>
+        <div class="option-status">Deployment</div>
+        <div class="option-status">Closed</div>
+    </div>
+    <div id="implementers">
+        <div class="implementer-top" value="e">Select implementer</div>
         {{#each this}}
-            <option value="{{this.attributes.id}}">{{this.attributes.name}}</option>
+            <div class="implementer" value="{{this.cid}}">{{this.attributes.name}}</div>
         {{/each}}
-    </select>
+    </div>
+    <div class="validAndButton">
+        <div class="button" id="save-task-button">save</div>
+        <div class="valid"></div>
+        <div class="button" id="close-button">close</button>
+    </div>
 </div>
 
 

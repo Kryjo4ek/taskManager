@@ -1,7 +1,8 @@
 CollectionView = require 'views/base/collection-view'
-Template = require 'views/home/templates/tasks'
 TaskView = require 'views/home/task-view'
-
+TasksModel = require 'models/tasks'
+TaskModel = require 'models/task'
+Chaplin = require 'chaplin'
 
 
 
@@ -9,19 +10,24 @@ TaskView = require 'views/home/task-view'
 module.exports = class TasksView extends CollectionView
 
   itemView: TaskView
-  tagName: "table"
+  tagName: 'div'
   className: 'tasks'
-#
-#  events:
-#    'click .property-task': 'deleteTask'
-#
-#
-#  deleteTask: ->
-#    console.log 'deleteTask'
-#    @model.destroy()
+
+  initialize: ->
+    Chaplin.mediator.subscribe('saveStatus', @filterStatus)
+    Chaplin.mediator.subscribe('renderCollection', @renderCollection)
 
 
+  filterStatus: (status) =>
+    console.log status.status
+    if status.status == "All status"
+      @collection.reset(TasksModel.originalCollection)
+      @render()
 
+    else
+      @collection.reset(TasksModel.originalCollection)
+      @collection.reset(@collection.where(status))
+      @render()
 
-
-
+  renderCollection: =>
+    @render()

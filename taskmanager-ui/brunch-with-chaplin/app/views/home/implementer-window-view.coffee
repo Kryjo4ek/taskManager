@@ -9,15 +9,13 @@ module.exports = class ImplementerWindowView extends View
   className : "modal-window"
   events:
     'click .save-implementer-button' : 'saveImplementer'
-    'click .close-button' : ()-> @remove()
+    'click .close-button' : 'removeWindow'
 
   saveImplementer: () ->
     implementer = {
       name: $('.name-implementer').val()
     }
-
     return unless @validate(implementer)
-
     Chaplin.mediator.publish 'newImplementer', implementer
     @remove()
 
@@ -30,3 +28,7 @@ module.exports = class ImplementerWindowView extends View
       @$('.name-implementer').css('border', '1px solid red')
 
     return valid
+    
+  removeWindow: ->
+    console.log 'removeWindow'
+    @remove()

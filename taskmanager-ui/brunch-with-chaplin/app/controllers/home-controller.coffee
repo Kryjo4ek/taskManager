@@ -8,7 +8,7 @@ TasksView = require 'views/home/tasks-view'
 TaskManagerView = require 'views/home/task-manager-view'
 TaskWindowView = require 'views/home/task-window-view'
 ImplementersModel = require 'models/implementers'
-FilterStatusWindowView= require 'views/home/status-filter-window-view'
+
 
 module.exports = class HomeController extends Controller
   beforeAction: ->
@@ -16,19 +16,48 @@ module.exports = class HomeController extends Controller
     @reuse 'header', HeaderView, region: 'header'
 
   index: ->
-
+    
     @managerView = new TaskManagerView region: 'columnNameContainer'
     @collection = new TasksModel
     @collectionView = new TasksView collection: @collection, region: 'tasks'
-    @collection.fetch().success @collectionView.render
+    @collection.fetch().success ()=>
+      @collectionView.render()
+      TasksModel.originalCollection = @collection.models
+      
     @collectionImplementer = new ImplementersModel
-    console.log (ImplementersModel.cacheImplementer)
-    @collectionImplementer.fetch().success ()-> console.log (ImplementersModel.cacheImplementer)
+    @collectionImplementer.fetch().success console.log (ImplementersModel.cacheImplementer)
 
+
+
+#    class Collection
+#
+#      success: (callback) ->
+#        @callbackOnSuccess = callback
+#
+#      fail: (callback) ->
+#        @callbackOnFails = callback
+#
+#      fetch: ->
+#        sendRequest()
+#        result = waitForRequest()
+#
+#        if result == 'success' then @callbackOnSuccess?() else @callbackOnFail?()
+#
+#        return @
+
+
+
+#    console.log TasksModel.originalCollection
+#()-> TasksModel.originalCollection = @collection.clone()
+
+#@collection.fetch().success TasksModel.originalCollection = @collection.clone @collectionView.render
 #testkeys
 #  index: ->
 #    httpRequest = new XMLHttpRequest()
 #    httpRequest.open('DELETE', 'http://127.0.0.1:8000/api/v1/tasks/')
+#    httpRequest.send()
+#    httpRequest = new XMLHttpRequest()
+#    httpRequest.open('DELETE', 'http://127.0.0.1:8000/api/v1/implementers/')
 #    httpRequest.send()
 #    console.log @collection
 #    @collection = new TasksModel

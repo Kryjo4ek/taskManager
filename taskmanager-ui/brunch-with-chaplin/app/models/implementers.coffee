@@ -11,12 +11,17 @@ module.exports = class Implementers extends Collection
     super
     Chaplin.mediator.subscribe('newImplementer', @createNewImplementer)
     Implementers.cacheImplementer = @
+
     
   parse: (data) ->
     data.objects
 
 
   createNewImplementer: (implementer) =>
-    @create(implementer)
+    implementerModel = @create(implementer, {wait: true})
+    Implementers.cacheImplementer.push(implementerModel)
+    
+
+
 
     
