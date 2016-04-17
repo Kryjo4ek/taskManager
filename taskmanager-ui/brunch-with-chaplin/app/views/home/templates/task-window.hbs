@@ -1,28 +1,28 @@
 <div class="window task-window">
+    <div class="name-window event-valid">Create Task</div>
     <input id="title" type="text" value="Input Title Task">
     <div class ="menu-option-status">
-        <div class="option-status-top">New</div>
-        <div class="option-status">New</div>
-        <div class="option-status">Reopened</div>
-        <div class="option-status">Assigned</div>
-        <div class="option-status">InProgress</div>
-        <div class="option-status">Feedback</div>
-        <div class="option-status">Resolved</div>
-        <div class="option-status">Testing</div>
-        <div class="option-status">Deployment</div>
-        <div class="option-status">Closed</div>
+        <div class="option-top" id="status-top">New</div>
+        <div class="option-status" id="option-status">New</div>
+        <div class="option-status" id="option-status">Reopened</div>
+        <div class="option-status" id="option-status">Assigned</div>
+        <div class="option-status" id="option-status">InProgress</div>
+        <div class="option-status" id="option-status">Feedback</div>
+        <div class="option-status" id="option-status">Resolved</div>
+        <div class="option-status" id="option-status">Testing</div>
+        <div class="option-status" id="option-status">Deployment</div>
+        <div class="option-status" id="option-status">Closed</div>
     </div>
-    <div id="implementers">
-        <div class="implementer-top" value="e">Select implementer</div>
+    <div class ="menu-option-status event-valid" id="implementers">
+        <div class="option-top" id="implementer-top" value="e">Select implementer</div>
         {{#each this}}
-            <div class="implementer" value="{{this.cid}}">{{this.attributes.name}}</div>
+            <div class="option-status" id="implementer" value="{{this.cid}}">{{this.attributes.name}}</div>
         {{/each}}
     </div>
-    <div class="validAndButton">
-        <div class="button" id="save-task-button">save</div>
-        <div class="valid"></div>
-        <div class="button" id="close-button">close</button>
-    </div>
+    <div class="valid"></div>
+    <div class="button" id="save-task-button">save</div>
+    <div class="button" id="close-button">close</div>
+
 </div>
 
 

@@ -8,8 +8,9 @@ module.exports = class ImplementerWindowView extends View
   autoRender: true
   className : "modal-window"
   events:
-    'click .save-implementer-button' : 'saveImplementer'
-    'click .close-button' : 'removeWindow'
+    'click #save-implementer-button' : 'saveImplementer'
+    'click #close-button' : 'removeWindow'
+    'input .name-implementer' : 'validate'
 
   saveImplementer: () ->
     implementer = {
@@ -19,13 +20,15 @@ module.exports = class ImplementerWindowView extends View
     Chaplin.mediator.publish 'newImplementer', implementer
     @remove()
 
-  validate: (implementer)->
-    valid = false
+  validate: ->
+    valid = true
 
-    if /^[A-Z][a-z\s]{2,10}$/.test(implementer.name)
-      valid = true
+    if !/^[A-Z][a-z\s]{2,10}$/.test($('.name-implementer').val())
+      valid = false
+#      @$('.name-implementer').css('border', '1px solid red')
+      @$('.valid').text('Error: input good name')
     else
-      @$('.name-implementer').css('border', '1px solid red')
+      @$('.valid').text('Good Name!')
 
     return valid
     

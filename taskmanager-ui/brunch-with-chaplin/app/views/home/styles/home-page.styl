@@ -99,7 +99,7 @@
       margin-top 2px
 
       .property-task
-        background rgba( 249, 226, 123, 0.1)
+        background rgba( 255, 255, 255, 0.83)
         width 200px
         height 50px
         float left
@@ -108,7 +108,8 @@
         line-height @height
         font-family 'Keania One', cursive;
         font-size 22px
-        color #AD5252
+        color #001D39
+
 
       .delete-task
         margin 3% 30%
@@ -128,55 +129,64 @@
   z-index 50
 
   .window
-    background rgba( 59, 72, 77, 1 )
-    margin 100px auto
-    width 803px
-    height 50px
-    border-left 4px solid #F9E27B
+    background rgba( 255, 255, 255, 0.83)
+    margin 102px auto
+    width 400px
+    height 260px
+
+    .name-window
+      width 400px
+      height 50px
+      line-height @height
+      font-family 'Keania One', cursive
+      font-weight bold
+      font-size 35px
+      color #3598DC
 
     #title
-      width 196px
-      height 50px
+      width 300px
+      height 25px
       float left
-      background rgba( 59, 72, 77, 1 )
-      border rgba( 59, 72, 77, 0 )
+      border rgba( 59, 72, 77, 1 )
       padding-left 20px
       text-align left
+      margin 10px 50px
       line-height @height
       font-family 'Keania One', cursive;
-      font-size 22px
+      font-size 23px
+      transition(all, 0.5s)
       color #AD5252
       &:hover
         border #3598DC
 
 
     .menu-option-status
-      height 50px
-      width 200px
-      position: relative
-      display inline-block
-      float left
-      left 1px
+      cursor pointer
+      height 25px
+      width 150px
+      margin 50px 50px
+      position: fixed
+      background #FFFFFF
+      border rgba( 59, 72, 77, 1 )
       overflow hidden
       text-align center
       line-height @height
       font-family 'Keania One', cursive;
       font-size 22px
       color  rgba( 18, 21, 23, 1 )
+      z-index 100
       transition(all, 0.5s)
       &:hover
-        background rgba( 18, 21, 23, 1 )
-        height 511px
-        //overflow scroll
+        height 250px
 
-      .option-status-top
+      .option-top
         color #AD5252
         &:hover
           color #AD5252
 
       .option-status
-        height 50px
-        width 200px
+        height 25px
+        width 150px
         color #263748
         transition-duration: 0.2s
         &:hover
@@ -184,106 +194,50 @@
           color white
 
     #implementers
+      margin 50px 200px
+      z-index 90
+      &:hover
+        overflow: auto
+
+      #implementer-top
+        padding-left 18px
+
+    .valid
       height 50px
-      width 200px
-      position: relative
-      display inline-block
+      width 300px
       float left
-      left 2px
-      overflow hidden
+      position relative
+      left 50px
+      top 50px
+      background white
+      white-space pre
+      text-align center
+      line-height 23px
+      font-family 'Keania One', cursive;
+      font-size 18px
+      transition(all, 0.5s)
+      color #AD5252
+    .button
+      cursor pointer
+      height 50px
+      width 100px
+      margin 60px 50px
+      //margin 60px 50px
+      //background green
+      float left
       text-align center
       line-height @height
       font-family 'Keania One', cursive;
-      font-size 22px
-      color  rgba( 18, 21, 23, 1 )
+      font-size 30px
       transition(all, 0.5s)
+      color white
+      background  #3598DC
       &:hover
-        background rgba( 18, 21, 23, 1 )
-        height 511px
-        overflow auto
+        background #F9E27B
+        color black
 
+  .implementer-window
+    height 220px
 
-      .implementer-top
-        color #AD5252
-        &:hover
-          color #AD5252
-
-      .implementer
-        height 50px
-        width 200px
-        color #263748
-        transition-duration: 0.2s
-        &:hover
-          background #263748
-          color white
-
-    .validAndButton
-      height 50px
-      width 201px
-      float left
-      position relative
-      left 3px
-      //left 2px
-      .valid
-        height 50px
-        width 121px
-        float left
-        //text-align center
-        line-height 10px
-        font-family 'Keania One', cursive;
-        font-size 18px
-        transition(all, 0.5s)
-        color #AD5252
-        //background #AD5252
-        //background white
-
-
-      .button
-        cursor pointer
-        height 50px
-        width 40px
-        //background green
-        float left
-        text-align center
-        line-height @height
-        font-family 'Keania One', cursive;
-        font-size 18px
-        transition(all, 0.5s)
-        color white
-        background #AD5252
-
-        &:hover
-          background #F9E27B
-          color black
-
-
-//  .task-window
-//    height: 300px
-//
-//  .implementer-window
-//    height: 200px
-//
-//  .status-filter-window
-//    height: 200px
-//
-//
-//.property-task
-//  margin-top 2px
-//  text-align: center
-//  background: white
-//  float: left
-//  width: 200px
-//  height: 50px
-//  line-height: @height
-//
-//
-//
-//
-//
-
-
-  //background: black
-
-//
-//.proverka
-//  background-color: black
+    .valid-implementer
+      margin-top -40px

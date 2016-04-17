@@ -14,9 +14,9 @@ module.exports = class TaskWindowView extends View
     'click #close-button' : 'removeWindow'
     'click #save-task-button' : 'saveTask'
 #    'mouseenter .menu-option-status' : 'showWindowStatus'
-#    'mouseleave .menu-option-status' : 'hideWindowStatus'
-    'click .option-status' : 'saveFilterStatus'
-    'click .implementer' : 'saveSelectImplementer'
+    'mouseleave .event-valid' : 'validate'
+    'click #option-status' : 'saveFilterStatus'
+    'click #implementer' : 'saveSelectImplementer'
 
   removeWindow: ->
     @remove()
@@ -34,27 +34,36 @@ module.exports = class TaskWindowView extends View
     @removeWindow()
 
   saveFilterStatus: (event) ->
-    @$('.option-status-top').text(event.target.textContent)
+    @$('#status-top').text(event.target.textContent)
 
   saveSelectImplementer: ->
-    @$('.implementer-top').text(event.target.textContent)
+    @$('#implementer-top').text(event.target.textContent)
 #    @atr = event.target.attributes.value
 #    console.log event.target.attributes.value.value
-    @$('.implementer-top').attr('value', event.target.attributes.value.value)
+    @$('#implementer-top').attr('value', event.target.attributes.value.value)
 
 
 
 
 
-  validate: (task) ->
+  validate: ->
     valid = true
+    str = ''
+    if !(/^[A-Z][a-z\s\d]{3,20}$/.test($('#title').val()))
+      valid = false
+      str = 'Error: Edit title'
+      @$('.valid').css('Error: Edit title')
+    else
+      str = str
+    if @$('#implementer-top').text() == 'Select implementer'
+      valid = false
+      str = str + '\n' + 'Error: Edit implementer'
+    else
+      str = str
+    @$('.valid').text(str)
 
-    if !(/^[A-Z][a-z\s\d]{3,20}$/.test(task.title))
-      valid = false
-      @$('.valid').text('Error: Edit title')
-    if @$('.implementer-top').text() == 'Select implementer'
-      valid = false
-      @$('.valid').text('Error: Edit implementer')
+    if str == ''
+      @$('.valid').text('All rows in the order')
     return valid
 
   getTemplateData: ->
