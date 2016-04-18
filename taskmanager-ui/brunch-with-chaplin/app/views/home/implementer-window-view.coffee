@@ -16,7 +16,7 @@ module.exports = class ImplementerWindowView extends View
     implementer = {
       name: $('.name-implementer').val()
     }
-    return unless @validate(implementer)
+    return unless @validate
     Chaplin.mediator.publish 'newImplementer', implementer
     @remove()
 
@@ -25,11 +25,12 @@ module.exports = class ImplementerWindowView extends View
 
     if !/^[A-Z][a-z\s]{2,10}$/.test($('.name-implementer').val())
       valid = false
-#      @$('.name-implementer').css('border', '1px solid red')
       @$('.valid').text('Error: input good name')
+      
     else
       @$('.valid').text('Good Name!')
-
+    console.log valid
+    
     return valid
     
   removeWindow: ->

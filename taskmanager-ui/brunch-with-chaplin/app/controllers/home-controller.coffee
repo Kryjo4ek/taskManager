@@ -1,12 +1,8 @@
 Controller = require 'controllers/base/controller'
 HeaderView = require 'views/home/header-view'
-HomePageView = require 'views/home/home-page-view'
-TaskModel = require 'models/task'
 TasksModel = require 'models/tasks'
-TaskView = require 'views/home/task-view'
 TasksView = require 'views/home/tasks-view'
 TaskManagerView = require 'views/home/task-manager-view'
-TaskWindowView = require 'views/home/task-window-view'
 ImplementersModel = require 'models/implementers'
 
 
@@ -16,7 +12,7 @@ module.exports = class HomeController extends Controller
     @reuse 'header', HeaderView, region: 'header'
 
   index: ->
-    
+
     @managerView = new TaskManagerView region: 'columnNameContainer'
     @collection = new TasksModel
     @collectionView = new TasksView collection: @collection, region: 'tasks'
