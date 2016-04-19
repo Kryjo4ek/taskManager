@@ -362,7 +362,7 @@ module.exports = Implementers = (function(superClass) {
 
   Implementers.prototype.model = Implementer;
 
-  Implementers.prototype.url = 'http://127.0.0.1:8000/api/v1/implementers/';
+  Implementers.prototype.url = 'http://78.47.87.66/api/v1/implementers/';
 
   Implementers.prototype.initialize = function() {
     Implementers.__super__.initialize.apply(this, arguments);
@@ -428,7 +428,7 @@ module.exports = Tasks = (function(superClass) {
 
   Tasks.prototype.model = Task;
 
-  Tasks.prototype.url = 'http://127.0.0.1:8000/api/v1/tasks/';
+  Tasks.prototype.url = 'http://78.47.87.66/api/v1/tasks/';
 
   Tasks.prototype.initialize = function() {
     Tasks.__super__.initialize.apply(this, arguments);
@@ -884,6 +884,7 @@ module.exports = TasksView = (function(superClass) {
   };
 
   TasksView.prototype.renderCollection = function() {
+    console.log('12345');
     return this.render();
   };
 

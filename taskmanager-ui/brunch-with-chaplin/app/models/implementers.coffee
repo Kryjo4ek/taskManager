@@ -5,7 +5,7 @@ Chaplin = require 'chaplin'
 module.exports = class Implementers extends Collection
 
   model: Implementer
-  url: 'http://127.0.0.1:8000/api/v1/implementers/'
+  url: 'http://78.47.87.66/api/v1/implementers/'
   
   initialize: ->
     super

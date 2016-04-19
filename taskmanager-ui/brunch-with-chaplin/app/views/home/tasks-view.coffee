@@ -25,5 +25,5 @@ module.exports = class TasksView extends CollectionView
       
 
   renderCollection: =>
-#    @collection = TasksModel.originalCollection
+    console.log '12345'
     @render()
