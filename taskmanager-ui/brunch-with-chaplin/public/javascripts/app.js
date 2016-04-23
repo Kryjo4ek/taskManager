@@ -357,7 +357,7 @@ module.exports = Implementers = (function(superClass) {
 
   Implementers.prototype.model = Implementer;
 
-  Implementers.prototype.url = '/api/v1/implementers/';
+  Implementers.prototype.url = 'http://127.0.0.1:8000/api/v1/implementers/';
 
   Implementers.prototype.initialize = function() {
     Implementers.__super__.initialize.apply(this, arguments);
@@ -423,7 +423,7 @@ module.exports = Tasks = (function(superClass) {
 
   Tasks.prototype.model = Task;
 
-  Tasks.prototype.url = '/api/v1/tasks/';
+  Tasks.prototype.url = 'http://127.0.0.1:8000/api/v1/tasks/';
 
   Tasks.prototype.initialize = function() {
     Tasks.__super__.initialize.apply(this, arguments);
@@ -715,12 +715,8 @@ module.exports = TaskView = (function(superClass) {
   TaskView.prototype.checkTask = function() {
     this.marked = !this.marked;
     if (this.marked) {
-      console.log(this.marked + " ");
-      console.log(this.model);
       return Chaplin.mediator.unsubscribe('deleteMarked', this.deleteTask);
     } else {
-      console.log("else" + this.marked);
-      console.log(this.model);
       return Chaplin.mediator.subscribe('deleteMarked', this.deleteTask);
     }
   };
