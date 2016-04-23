@@ -12,13 +12,10 @@ module.exports = class HomeController extends Controller
     @reuse 'header', HeaderView, region: 'header'
 
   index: ->
-
+    
     @managerView = new TaskManagerView region: 'columnNameContainer'
     @collection = new TasksModel
     @collectionView = new TasksView collection: @collection, region: 'tasks'
-    @collection.fetch().success ()=>
-      @collectionView.render()
-      TasksModel.originalCollection = @collection.models
-      
+    @collection.fetch().success @collectionView.render
     @collectionImplementer = new ImplementersModel
-    @collectionImplementer.fetch().success console.log (ImplementersModel.cacheImplementer)
+    @collectionImplementer.fetch()

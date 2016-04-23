@@ -1,6 +1,7 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
+from tastypie.serializers import Serializer
 from db.models import Implementer, Task
 
 
@@ -10,6 +11,8 @@ class ImplementerResource(ModelResource):
         queryset = Implementer.objects.all()
         resource_name = 'implementers'
         authorization = Authorization()
+        always_return_data = True
+        serializer = Serializer(formats=['json', 'jsonp', 'xml', 'yaml', 'plist'])
 
 
 class TaskResource(ModelResource):
@@ -19,3 +22,5 @@ class TaskResource(ModelResource):
         queryset = Task.objects.all()
         resource_name = 'tasks'
         authorization = Authorization()
+        always_return_data = True
+        serializer = Serializer(formats=['json', 'jsonp', 'xml', 'yaml', 'plist'])

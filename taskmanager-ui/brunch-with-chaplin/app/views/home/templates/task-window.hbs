@@ -1,25 +1,25 @@
 <div class="window task-window">
     <div class="name-window">Create Task</div>
-    <input class="event-valid" id="title" type="text" value="Input Title Task">
-    <div class ="menu-option-status">
+    <input class="event-valid" id="title" type="text" placeholder="Input the title task" value="">
+    <div class ="menu-option hover">
         <div class="option-top" id="status-top">New</div>
-        <div class="option-status" id="option-status">New</div>
-        <div class="option-status" id="option-status">Reopened</div>
-        <div class="option-status" id="option-status">Assigned</div>
-        <div class="option-status" id="option-status">InProgress</div>
-        <div class="option-status" id="option-status">Feedback</div>
-        <div class="option-status" id="option-status">Resolved</div>
-        <div class="option-status" id="option-status">Testing</div>
-        <div class="option-status" id="option-status">Deployment</div>
-        <div class="option-status" id="option-status">Closed</div>
+        <div class="option" id="option-status">New</div>
+        <div class="option" id="option-status">Reopened</div>
+        <div class="option" id="option-status">Assigned</div>
+        <div class="option" id="option-status">InProgress</div>
+        <div class="option" id="option-status">Feedback</div>
+        <div class="option" id="option-status">Resolved</div>
+        <div class="option" id="option-status">Testing</div>
+        <div class="option" id="option-status">Deployment</div>
+        <div class="option" id="option-status">Closed</div>
     </div>
-    <div class ="menu-option-status event-valid" id="implementers">
-        <div class="option-top" id="implementer-top" value="e">Select implementer</div>
+    <div class ="menu-option event-valid hover" id="implementers">
+        <div class="option-top" id="implementer-top" value="">Select implementer</div>
         {{#each this}}
-            <div class="option-status" id="implementer" value="{{this.cid}}">{{this.attributes.name}}</div>
+            <div class="option" id="implementer" value="{{this.id}}">{{this.attributes.name}}</div>
         {{/each}}
     </div>
-    <div class="valid"></div>
+    <div class="valid">The first letter of the Title must be uppercase<br>Number of letters in the Title of from 4 to 9</div>
     <div class="button" id="save-task-button">save</div>
     <div class="button" id="close-button">close</div>
 

@@ -18,7 +18,6 @@ module.exports = class TaskManagerView extends View
     'mouseleave .menu-option-status' : 'hideWindowStatus'
     'click .option-status' : 'saveFilterStatus'
 
-
   showWindowTask: ->
     @taskWindowView = new TaskWindowView region: 'modalWindow'
 
@@ -27,18 +26,14 @@ module.exports = class TaskManagerView extends View
 
   deleteCheckTasks: ->
     Chaplin.mediator.publish 'deleteMarked'
-    Chaplin.mediator.publish 'renderCollection'
 
   showWindowStatus: ->
     @menuOpionStatus ?= @$('.menu-option-status')
-    @propertyButtonStatus ?= @$('.property-button-status')
-
     @menuOpionStatus.css('height', '550')
     @menuOpionStatus.css('background', '#263748')
     @menuOpionStatus.css('border-left', '1px solid #3598DC')
     @menuOpionStatus.css('border-right', '1px solid #3598DC')
     @menuOpionStatus.css('border-bottom', '1px solid #3598DC')
-
 
   hideWindowStatus: ->
     @menuOpionStatus.css('height', '50')
@@ -47,7 +42,7 @@ module.exports = class TaskManagerView extends View
   saveFilterStatus: (event) ->
     status = {status : event.target.textContent}
     @$('.option-status-top').text(event.target.textContent)
-    Chaplin.mediator.publish 'saveStatus', status
+    Chaplin.mediator.publish 'saveStatus', status 
     @hideWindowStatus()
     
 

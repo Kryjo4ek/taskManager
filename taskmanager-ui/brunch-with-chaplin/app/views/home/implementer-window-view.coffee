@@ -2,6 +2,7 @@ View = require 'views/base/view'
 Template = require 'views/home/templates/implementer-window'
 Chaplin = require 'chaplin'
 
+
 module.exports = class ImplementerWindowView extends View
 
   template: Template
@@ -16,23 +17,21 @@ module.exports = class ImplementerWindowView extends View
     implementer = {
       name: $('.name-implementer').val()
     }
-    return unless @validate
+    return unless @validate()
     Chaplin.mediator.publish 'newImplementer', implementer
     @remove()
 
   validate: ->
     valid = true
-
-    if !/^[A-Z][a-z\s]{2,10}$/.test($('.name-implementer').val())
+    
+    if !/^[A-Z][a-z\s]{2,7}$/.test($('.name-implementer').val())
       valid = false
       @$('.valid').text('Error: input good name')
       
     else
-      @$('.valid').text('Good Name!')
-    console.log valid
-    
+      @$('.valid').text('Good the name!')
+      
     return valid
     
   removeWindow: ->
-    console.log 'removeWindow'
     @remove()

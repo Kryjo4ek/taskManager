@@ -1,7 +1,7 @@
 CollectionView = require 'views/base/collection-view'
 TaskView = require 'views/home/task-view'
-TasksModel = require 'models/tasks'
 Chaplin = require 'chaplin'
+
 
 module.exports = class TasksView extends CollectionView
 
@@ -12,18 +12,17 @@ module.exports = class TasksView extends CollectionView
   initialize: ->
     Chaplin.mediator.subscribe('saveStatus', @filterStatus)
     Chaplin.mediator.subscribe('renderCollection', @renderCollection)
-    
-  filterStatus: (status) =>
-    if status.status == "All status"
-      @collection.reset(TasksModel.originalCollection)
-      @renderCollection()
 
-    else
-      @collection.reset(TasksModel.originalCollection)
-      @collection.reset(@collection.where(status))
-      @render()
-      
+  filterStatus: (status) =>
+    for view in @subviews
+      if status.status == "All status"
+        view.$el.show()
+
+      else if view.model.attributes.status == status.status
+        view.$el.show()
+
+      else
+        view.$el.hide()
 
   renderCollection: =>
-    console.log '12345'
     @render()

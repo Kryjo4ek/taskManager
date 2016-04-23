@@ -193,14 +193,9 @@ module.exports = HomeController = (function(superClass) {
       collection: this.collection,
       region: 'tasks'
     });
-    this.collection.fetch().success((function(_this) {
-      return function() {
-        _this.collectionView.render();
-        return TasksModel.originalCollection = _this.collection.models;
-      };
-    })(this));
+    this.collection.fetch().success(this.collectionView.render);
     this.collectionImplementer = new ImplementersModel;
-    return this.collectionImplementer.fetch().success(console.log(ImplementersModel.cacheImplementer));
+    return this.collectionImplementer.fetch();
   };
 
   return HomeController;
@@ -362,7 +357,7 @@ module.exports = Implementers = (function(superClass) {
 
   Implementers.prototype.model = Implementer;
 
-  Implementers.prototype.url = 'http://78.47.87.66/api/v1/implementers/';
+  Implementers.prototype.url = 'http://127.0.0.1:8000/api/v1/implementers/';
 
   Implementers.prototype.initialize = function() {
     Implementers.__super__.initialize.apply(this, arguments);
@@ -428,7 +423,7 @@ module.exports = Tasks = (function(superClass) {
 
   Tasks.prototype.model = Task;
 
-  Tasks.prototype.url = 'http://78.47.87.66/api/v1/tasks/';
+  Tasks.prototype.url = 'http://127.0.0.1:8000/api/v1/tasks/';
 
   Tasks.prototype.initialize = function() {
     Tasks.__super__.initialize.apply(this, arguments);
@@ -536,10 +531,6 @@ module.exports = HeaderView = (function(superClass) {
 })(View);
 });
 
-;require.register("views/home/implementer-view", function(exports, require, module) {
-
-});
-
 ;require.register("views/home/implementer-window-view", function(exports, require, module) {
 var Chaplin, ImplementerWindowView, Template, View,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -575,7 +566,7 @@ module.exports = ImplementerWindowView = (function(superClass) {
     implementer = {
       name: $('.name-implementer').val()
     };
-    if (!this.validate) {
+    if (!this.validate()) {
       return;
     }
     Chaplin.mediator.publish('newImplementer', implementer);
@@ -585,18 +576,16 @@ module.exports = ImplementerWindowView = (function(superClass) {
   ImplementerWindowView.prototype.validate = function() {
     var valid;
     valid = true;
-    if (!/^[A-Z][a-z\s]{2,10}$/.test($('.name-implementer').val())) {
+    if (!/^[A-Z][a-z\s]{2,7}$/.test($('.name-implementer').val())) {
       valid = false;
       this.$('.valid').text('Error: input good name');
     } else {
-      this.$('.valid').text('Good Name!');
+      this.$('.valid').text('Good the name!');
     }
-    console.log(valid);
     return valid;
   };
 
   ImplementerWindowView.prototype.removeWindow = function() {
-    console.log('removeWindow');
     return this.remove();
   };
 
@@ -655,16 +644,12 @@ module.exports = TaskManagerView = (function(superClass) {
   };
 
   TaskManagerView.prototype.deleteCheckTasks = function() {
-    Chaplin.mediator.publish('deleteMarked');
-    return Chaplin.mediator.publish('renderCollection');
+    return Chaplin.mediator.publish('deleteMarked');
   };
 
   TaskManagerView.prototype.showWindowStatus = function() {
     if (this.menuOpionStatus == null) {
       this.menuOpionStatus = this.$('.menu-option-status');
-    }
-    if (this.propertyButtonStatus == null) {
-      this.propertyButtonStatus = this.$('.property-button-status');
     }
     this.menuOpionStatus.css('height', '550');
     this.menuOpionStatus.css('background', '#263748');
@@ -730,15 +715,20 @@ module.exports = TaskView = (function(superClass) {
   TaskView.prototype.checkTask = function() {
     this.marked = !this.marked;
     if (this.marked) {
-      console.log('@marked');
+      console.log(this.marked + " ");
+      console.log(this.model);
       return Chaplin.mediator.unsubscribe('deleteMarked', this.deleteTask);
     } else {
+      console.log("else" + this.marked);
+      console.log(this.model);
       return Chaplin.mediator.subscribe('deleteMarked', this.deleteTask);
     }
   };
 
   TaskView.prototype.deleteTask = function() {
-    return this.model.destroy();
+    Chaplin.mediator.unsubscribe('deleteMarked', this.deleteTask);
+    this.model.destroy();
+    return this.remove();
   };
 
   return TaskView;
@@ -792,7 +782,7 @@ module.exports = TaskWindowView = (function(superClass) {
       status: this.$('#status-top').text(),
       implementer: ImplementersModel.cacheImplementer._byId[$('#implementer-top').attr('value')]
     };
-    if (!this.validate(task)) {
+    if (!this.validate()) {
       return;
     }
     Chaplin.mediator.publish('newTask', task);
@@ -804,27 +794,29 @@ module.exports = TaskWindowView = (function(superClass) {
     return this.$('#status-top').text(event.target.textContent);
   };
 
-  TaskWindowView.prototype.saveSelectImplementer = function() {
+  TaskWindowView.prototype.saveSelectImplementer = function(event) {
     this.$('#implementer-top').text(event.target.textContent);
-    return this.$('#implementer-top').attr('value', event.target.attributes.value.value);
+    this.$('#implementer-top').attr('value', event.target.attributes.value.value);
+    return this.$('#implementers').scrollTop(0);
   };
 
   TaskWindowView.prototype.validate = function() {
     var str, valid;
+    this.$('#implementers').scrollTop(0);
     valid = true;
     str = '';
-    if (!(/^[A-Z][a-z\s\d]{3,20}$/.test($('#title').val()))) {
+    if (!(/^[A-Z][a-z\s\d]{3,9}$/.test($('#title').val()))) {
       valid = false;
       str = 'Error: Edit title';
-      this.$('.valid').css('Error: Edit title');
+      this.$('.valid').css('Error: Edit the title');
     }
     if (this.$('#implementer-top').text() === 'Select implementer') {
       valid = false;
-      str = str + '\n' + 'Error: Edit implementer';
+      str = str + '\n' + 'Error: Select the implementer';
     }
     this.$('.valid').text(str);
     if (str === '') {
-      this.$('.valid').text('All rows in the order');
+      this.$('.valid').text('Good');
     }
     return valid;
   };
@@ -839,7 +831,7 @@ module.exports = TaskWindowView = (function(superClass) {
 });
 
 ;require.register("views/home/tasks-view", function(exports, require, module) {
-var Chaplin, CollectionView, TaskView, TasksModel, TasksView,
+var Chaplin, CollectionView, TaskView, TasksView,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -847,8 +839,6 @@ var Chaplin, CollectionView, TaskView, TasksModel, TasksView,
 CollectionView = require('views/base/collection-view');
 
 TaskView = require('views/home/task-view');
-
-TasksModel = require('models/tasks');
 
 Chaplin = require('chaplin');
 
@@ -873,18 +863,23 @@ module.exports = TasksView = (function(superClass) {
   };
 
   TasksView.prototype.filterStatus = function(status) {
-    if (status.status === "All status") {
-      this.collection.reset(TasksModel.originalCollection);
-      return this.renderCollection();
-    } else {
-      this.collection.reset(TasksModel.originalCollection);
-      this.collection.reset(this.collection.where(status));
-      return this.render();
+    var i, len, ref, results, view;
+    ref = this.subviews;
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      view = ref[i];
+      if (status.status === "All status") {
+        results.push(view.$el.show());
+      } else if (view.model.attributes.status === status.status) {
+        results.push(view.$el.show());
+      } else {
+        results.push(view.$el.hide());
+      }
     }
+    return results;
   };
 
   TasksView.prototype.renderCollection = function() {
-    console.log('12345');
     return this.render();
   };
 
@@ -895,7 +890,7 @@ module.exports = TasksView = (function(superClass) {
 
 ;require.register("views/home/templates/header", function(exports, require, module) {
 var __templateData = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"logo\">Task manager</div>\n";
+    return "<h2 class=\"logo\">Task manager</h2>\n";
 },"useData":true});
 if (typeof define === 'function' && define.amd) {
   define([], function() {
@@ -910,22 +905,7 @@ if (typeof define === 'function' && define.amd) {
 
 ;require.register("views/home/templates/implementer-window", function(exports, require, module) {
 var __templateData = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"window implementer-window\">\n    <div class=\"name-window\">Add implementer</div>\n    <input class=\"name-implementer\" type=\"text\" id=\"title\"  value=\"Input name implementer\">\n    <div class=\"valid valid-implementer\"></div>\n    <div class=\"button\" id=\"save-implementer-button\">save</div>\n    <div class=\"button\" id=\"close-button\">close</div>\n</div>";
-},"useData":true});
-if (typeof define === 'function' && define.amd) {
-  define([], function() {
-    return __templateData;
-  });
-} else if (typeof module === 'object' && module && module.exports) {
-  module.exports = __templateData;
-} else {
-  __templateData;
-}
-});
-
-;require.register("views/home/templates/modal-window", function(exports, require, module) {
-var __templateData = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<!--<div class = \"modal-window\"></div>-->";
+    return "<div class=\"window implementer-window\">\n    <div class=\"name-window\">Add implementer</div>\n    <input class=\"name-implementer\" type=\"text\" id=\"title\" placeholder=\"Input name implementer\" value=\"\">\n    <div class=\"valid valid-implementer\" >The first letter of the Name must be uppercase<br>Number of letters in the Name of from 3 to 8</div>\n    <div class=\"button\" id=\"save-implementer-button\">save</div>\n    <div class=\"button\" id=\"close-button\">close</div>\n</div>";
 },"useData":true});
 if (typeof define === 'function' && define.amd) {
   define([], function() {
@@ -957,17 +937,17 @@ if (typeof define === 'function' && define.amd) {
 var __templateData = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
-  return "            <div class=\"option-status\" id=\"implementer\" value=\""
-    + alias2(alias1((depth0 != null ? depth0.cid : depth0), depth0))
+  return "            <div class=\"option\" id=\"implementer\" value=\""
+    + alias2(alias1((depth0 != null ? depth0.id : depth0), depth0))
     + "\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.name : stack1), depth0))
     + "</div>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"window task-window\">\n    <div class=\"name-window\">Create Task</div>\n    <input class=\"event-valid\" id=\"title\" type=\"text\" value=\"Input Title Task\">\n    <div class =\"menu-option-status\">\n        <div class=\"option-top\" id=\"status-top\">New</div>\n        <div class=\"option-status\" id=\"option-status\">New</div>\n        <div class=\"option-status\" id=\"option-status\">Reopened</div>\n        <div class=\"option-status\" id=\"option-status\">Assigned</div>\n        <div class=\"option-status\" id=\"option-status\">InProgress</div>\n        <div class=\"option-status\" id=\"option-status\">Feedback</div>\n        <div class=\"option-status\" id=\"option-status\">Resolved</div>\n        <div class=\"option-status\" id=\"option-status\">Testing</div>\n        <div class=\"option-status\" id=\"option-status\">Deployment</div>\n        <div class=\"option-status\" id=\"option-status\">Closed</div>\n    </div>\n    <div class =\"menu-option-status event-valid\" id=\"implementers\">\n        <div class=\"option-top\" id=\"implementer-top\" value=\"e\">Select implementer</div>\n"
+  return "<div class=\"window task-window\">\n    <div class=\"name-window\">Create Task</div>\n    <input class=\"event-valid\" id=\"title\" type=\"text\" placeholder=\"Input the title task\" value=\"\">\n    <div class =\"menu-option hover\">\n        <div class=\"option-top\" id=\"status-top\">New</div>\n        <div class=\"option\" id=\"option-status\">New</div>\n        <div class=\"option\" id=\"option-status\">Reopened</div>\n        <div class=\"option\" id=\"option-status\">Assigned</div>\n        <div class=\"option\" id=\"option-status\">InProgress</div>\n        <div class=\"option\" id=\"option-status\">Feedback</div>\n        <div class=\"option\" id=\"option-status\">Resolved</div>\n        <div class=\"option\" id=\"option-status\">Testing</div>\n        <div class=\"option\" id=\"option-status\">Deployment</div>\n        <div class=\"option\" id=\"option-status\">Closed</div>\n    </div>\n    <div class =\"menu-option event-valid hover\" id=\"implementers\">\n        <div class=\"option-top\" id=\"implementer-top\" value=\"\">Select implementer</div>\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},depth0,{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\n    <div class=\"valid\"></div>\n    <div class=\"button\" id=\"save-task-button\">save</div>\n    <div class=\"button\" id=\"close-button\">close</div>\n\n</div>\n\n\n\n\n";
+    + "    </div>\n    <div class=\"valid\">The first letter of the Title must be uppercase<br>Number of letters in the Title of from 4 to 9</div>\n    <div class=\"button\" id=\"save-task-button\">save</div>\n    <div class=\"button\" id=\"close-button\">close</div>\n\n</div>\n\n\n\n\n";
 },"useData":true});
 if (typeof define === 'function' && define.amd) {
   define([], function() {

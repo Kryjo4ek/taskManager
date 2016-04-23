@@ -3,6 +3,7 @@ Template = require 'views/home/templates/task-window'
 ImplementersModel = require 'models/implementers'
 Chaplin = require 'chaplin'
 
+
 module.exports = class TaskWindowView extends View
 
   template: Template
@@ -25,8 +26,7 @@ module.exports = class TaskWindowView extends View
       status: @$('#status-top').text()
       implementer: ImplementersModel.cacheImplementer._byId[$('#implementer-top').attr('value')]
     }
-
-    return unless @validate(task)
+    return unless @validate()
     Chaplin.mediator.publish 'newTask', task
     Chaplin.mediator.publish('renderCollection')
     @removeWindow()
@@ -34,26 +34,29 @@ module.exports = class TaskWindowView extends View
   saveFilterStatus: (event) ->
     @$('#status-top').text(event.target.textContent)
 
-  saveSelectImplementer: ->
+  saveSelectImplementer: (event)->
     @$('#implementer-top').text(event.target.textContent)
     @$('#implementer-top').attr('value', event.target.attributes.value.value)
+    @$('#implementers').scrollTop(0)
 
   validate: ->
+    @$('#implementers').scrollTop(0)
     valid = true
     str = ''
-    if !(/^[A-Z][a-z\s\d]{3,20}$/.test($('#title').val()))
+    
+    if !(/^[A-Z][a-z\s\d]{3,9}$/.test($('#title').val()))
       valid = false
       str = 'Error: Edit title'
-      @$('.valid').css('Error: Edit title')
+      @$('.valid').css('Error: Edit the title')
 
     if @$('#implementer-top').text() == 'Select implementer'
       valid = false
-      str = str + '\n' + 'Error: Edit implementer'
-
+      str = str + '\n' + 'Error: Select the implementer'
+      
     @$('.valid').text(str)
 
     if str == ''
-      @$('.valid').text('All rows in the order')
+      @$('.valid').text('Good')
     return valid
 
   getTemplateData: ->
