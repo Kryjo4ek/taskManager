@@ -212,7 +212,7 @@ routes = require('routes');
 
 $(function() {
   return new Application({
-    title: 'Brunch example application',
+    title: 'Task manager',
     controllerSuffix: '-controller',
     routes: routes
   });
@@ -357,7 +357,7 @@ module.exports = Implementers = (function(superClass) {
 
   Implementers.prototype.model = Implementer;
 
-  Implementers.prototype.url = 'http://127.0.0.1:8000/api/v1/implementers/';
+  Implementers.prototype.url = '/api/v1/implementers/';
 
   Implementers.prototype.initialize = function() {
     Implementers.__super__.initialize.apply(this, arguments);
@@ -423,7 +423,7 @@ module.exports = Tasks = (function(superClass) {
 
   Tasks.prototype.model = Task;
 
-  Tasks.prototype.url = 'http://127.0.0.1:8000/api/v1/tasks/';
+  Tasks.prototype.url = '/api/v1/tasks/';
 
   Tasks.prototype.initialize = function() {
     Tasks.__super__.initialize.apply(this, arguments);
